@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Подключаем гугл-шрифт Bangers -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
+    <!-- Подключаем стили -->
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body>
+
+    <div class="leftSideBar", id="left_side_bar">
+        <ul class="nav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div>    
+                <div class="menu_button" id="start_game_div">
+                    <p>start game</p>
+                </div>
+
+                <div class="menu_button" id="pause_game_div">
+                    <p>pause game</p>
+                </div>
+
+                <div class="menu_button" id="continue_game_div">
+                    <p>continue</p>
+                </div>
+
+                <div class="menu_button" id="talents_div">
+                    <p>show talents</p>
+                </div>
+
+            </div>
+        </ul>
+    </div>
+
+    <div class="menu_button" id="side_menu_div">
+        <p>open menu</p>
+    </div>
+    <br style="clear: both;">
+
+    <p>Move:</p>
+    <p>'w', 'a', 's', 'd'</p>    
+    <p>Gather: 'G'</p> 
+    
+    <p id="score">Score: 0</p>
+
+    <div>
+        <span>&#8203;</span>
+        <p id="mining_lvl">Mining level: 1</p>
+        <p id="mining_exp">Mining exp: 0</p>
+        <p id="cutting_lvl">Cutting level: 1</p>
+        <p id="cutting_exp">Cutting exp: 0</p>
+    </div>
+    
+
+
+    <div id="main">
+        <canvas id="canvas1"></canvas>
+    </div>  
+    <!-- <img id="player" src="imgs/player.png">
+    <img id="donut" src="imgs/donut.png"> -->
+    
+    <script src="../static/src/Constants.js"></script>
+    <script src="../static/src/Functions.js"></script>
+
+    <script src="../static/UI/menu/Menu.js"></script>
+
+    <script src="../static/UI/talents/Talents.js"></script>
+    <script src="../static/UI/talents/AbstractTalent.js"></script>
+    <script src="../static/UI/talents/TestTalent.js"></script>
+
+    <script src="../static/src/QuadTreePack/Tile.js"></script>
+    <script src="../static/src/QuadTreePack/Node.js"></script>
+    <script src="../static/src/QuadTreePack/TerminalNode.js"></script>
+    <script src="../static/src/QuadTreePack/InterimNode.js"></script>
+    <script src="../static/src/QuadTreePack/QuadTree.js"></script>
+
+    <script src="../static/src/entities/Entity.js"></script>
+    <script src="../static/src/entities/Player.js"></script>
+    <script src="../static/src/entities/MapObject.js"></script>
+    <script src="../static/src/entities/Border.js"></script>
+
+    <script src="../static/src/entities/enemies/AbstractEnemy.js"></script>
+    <script src="../static/src/entities/enemies/TestEnemy.js"></script>
+ 
+    <script src="../static/src/entities/resources/Resource.js"></script>
+    <script src="../static/src/entities/resources/Donut.js"></script>
+    <script src="../static/src/entities/resources/Tree.js"></script>
+    <script src="../static/src/entities/resources/Stone.js"></script>
+
+
+    <script src="../static/src/abstract/Stats.js"></script>
+    <script src="../static/src/abstract/ObjectParameters.js"></script>
+    <script src="../static/src/abstract/Professions.js"></script>
+
+    <script src="../static/src/inventory/AbstractStorage.js"></script>
+    <script src="../static/src/inventory/Inventory.js"></script>
+
+    <script src="../static/src/items/Item.js"></script> 
+    <script src="../static/src/items/Boulder.js"></script> 
+    <script src="../static/src/items/Log.js"></script> 
+
+    <script src="../static/src/generators/ObjectGenerator.js"></script>
+    <script src="../static/src/generators/ItemGenerator.js"></script>
+
+    <script src="../static/src/InputHandler.js"></script>
+    <script src="../static/src/Camera.js"></script>
+    <script src="../static/src/GameLogic.js"></script>
+    <script src="../static/src/GameView.js"></script>
+    <script src="../static/src/Game.js"></script>
+
+    <!-- Main script file -->
+    <script src="../static/script.js"></script>
+
+
+
+
+    <script>
+        /* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+        // function openNav() {
+        // document.getElementById("left_side_bar").style.width = "200px";
+        // document.getElementById("main").style.marginLeft = "150px";
+        // }
+
+        /* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+        function closeNav() {
+        document.getElementById("left_side_bar").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+
+</html>

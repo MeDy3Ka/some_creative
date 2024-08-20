@@ -1,0 +1,116 @@
+
+
+
+
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgba(95, 49, 34, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: #ff0000 solid; */
+}
+
+div {
+    display: inline-block
+}
+
+p {
+    color: rgba(228, 255, 164, 1);
+    font-size: 1.4rem;
+    font-family: cursive;
+}
+
+.leftSideBar {
+    background-color: rgba(59, 70, 34, 1);
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    
+}
+
+
+.leftSideBar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.menu_button{
+    left: 0;
+    width : 200px;
+    border: #c4af77 solid 1px;
+    background-color: rgb(133, 63, 39);
+    
+}
+.menu_button:hover {
+    cursor: pointer;
+    background-color: rgb(236, 193, 112);
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+    transition: margin-left .5s;
+    padding: 20px;
+}
+.nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav li {    
+    margin: 1px 0;
+    border: 1px solid #999;
+}
+.nav li a {
+    display: block;
+    line-height: 3em;
+    width: 100%;
+    text-decoration: none;
+}
+
+
+
+#canvas1 {
+    border: 5px solid black;
+    position: absolute;
+    top: 100px;
+    left: 200px;
+    /* transform: translate(-50%, -50%); */
+    background: #4d79bc;
+    max-width: 100%;
+    max-height: 100%;
+    font-family: 'Bangers', cursive; /* Подключаем шрифт Bangers */
+}
+
+
+
+#layer1,
+#layer2,
+#layer3,
+#layer4,
+#player,
+#angler1,
+#angler2,
+#lucky,
+#projectile,
+#gears,
+#hivewhale,
+#drone,
+#smokeExplosion,
+#fireExplosion {
+    display: none;
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Main</title>
+    <style>
+		canvas {
+			position: absolute;
+			top: 50%; left: 50%;
+			transform: translate(-50%, -50%);
+			border: 1px solid black;
+		}
+	</style>
+</head>
+<body>
+    <canvas width="500" height="500"></canvas>
+    <script src="PerlinNoise.js"></script>
+    
+	<script>
+    let ctx = document.getElementsByTagName("canvas")[0].getContext("2d");
+    //Generates a black/white heightmap
+    const body = document.body,
+    tbl = document.createElement('table');
+    tbl.style.width = '100px';
+    tbl.style.border = '1px solid black';
+
+    // for (let i = 0; i < 1000; i++) {
+    //     const tr = tbl.insertRow();
+    //     for (let j = 0; j < 15; j++) {
+
+    //         const td = tr.insertCell();
+    //         td.appendChild(document.createTextNode(`${Noise2D(i*0.01, j*0.01)+1}`));
+    //         td.style.border = '1px solid black';
+
+    //     }
+    // }
+    // body.appendChild(tbl);
+    
+    for(let y = 0; y < 1000; y++){
+        for(let x = 0; x < 1000; x++){
+            
+            let n = Noise2D(x*0.01, y*0.01);
+            
+            n += 1.0;
+            n *= 0.5;
+            let rgb = Math.round(255*n);
+            ctx.fillStyle = "rgba("+rgb+","+rgb+","+rgb+",1.0)";
+            ctx.fillRect(x, y, 1, 1);
+        }
+    }
+
+    </script>
+</body>
+</html>
