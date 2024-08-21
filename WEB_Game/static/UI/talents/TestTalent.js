@@ -1,6 +1,6 @@
 class TestTalent extends AbstractTalent {
-    constructor() {
+    constructor(x, y) {
         let img = "../static/imgs/talents/warior.png";
-        super(img)
+        super(img, x, y);
     }
 }

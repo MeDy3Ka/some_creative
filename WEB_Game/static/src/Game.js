@@ -24,10 +24,9 @@ class Game {
 
     show_talents = () => {
         this.view.isTalents = true;
-        this.logic.isPause = true;
+        this.logic.isTalents = true;
     }
 
-    
     pause_game = () => {
         this.view.isPause = true;
         this.logic.isPause = true;
@@ -36,12 +35,13 @@ class Game {
     continue = () => {
         this.view.isTalents = false;
         this.view.isPause = false;
+        this.logic.isTalents = false;
         this.logic.isPause = false;
     }
 
     start_new_game = ()  => {
         if (this.logic.isPause) {
-            let player = new Player(1, 1, new Stats(), new Professions(), new Inventory());
+            let player = new Player(1, 1, new Stats(), new Professions(), new Inventory(), new Talents());
             this.logic = new GameLogic(player);
             this.controller = new InputHandler(this.logic)
             this.view = new GameView(this.logic, this.canvas);
@@ -61,14 +61,12 @@ class Game {
 
     }
 
-
     game_cycle = (currentTime) => {   // В currentTime будет записан момент времени следующего вызова функции animate()
-   
+
         let deltaTime = currentTime - this.lastTime; // Разница, в миллисекундах, между итерациями анимационного цикла
         // Очищаем игровое поле перед следующей анимацией
         this.update(deltaTime) // Теперь обновление игры будет зависеть от частоты смены кадров
         this.lastTime = currentTime; // Переприсваивание временных позиций
         window.requestAnimationFrame(this.game_cycle);
-
     }
 }

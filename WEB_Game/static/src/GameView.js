@@ -3,7 +3,7 @@ class GameView{
         this.canvas = canvas
         this.logic = logic;
         this.screen = this.canvas.getContext('2d');
-        this.canvas.width = Game.TILE_SIZE * this.logic.camera.w;
+        this.canvas.width = Game.TILE_SIZE * this.logic.camera.w + 100;
         this.canvas.height = Game.TILE_SIZE * this.logic.camera.h;  
         this.isPause = false;
         this.isTalents = false;
@@ -42,7 +42,6 @@ class GameView{
           this.draw_map(this.logic.camera);
           this.logic.player.draw(this.screen);
         }
-        
     }
 
     draw_pause() {
@@ -67,9 +66,9 @@ class GameView{
     }
     
     draw_talents = () => {
-      this.screen.fillStyle = "rgba(255,255,255)"
-      this.screen.fillRect(0, 0, this.canvas.width, this.canvas.height)
-      this.logic.player.talents.talent.draw(this.screen, 100, 100)
+      this.screen.fillStyle = "rgba(20,80,20)";
+      this.screen.fillRect(0, 0, this.canvas.width, this.canvas.height);
+      this.logic.player.talents.draw(this.screen);
     }
 
     test_menu() {

@@ -9,6 +9,7 @@ class GameLogic{
         this.camera = new Camera(0, 0, 8, 6, 0, 0, quad_tree_width, quad_tree_width);
         this.game_score = 0;
         this.isPause = false;
+        this.isTalents = false;
 
     }
 
