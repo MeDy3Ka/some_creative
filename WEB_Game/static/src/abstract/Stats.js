@@ -31,11 +31,11 @@ class Stats{
             this.str++;
         } else if (attr == "int"){
             this.int++;
-        } else if (attr == "int"){
+        } else if (attr == "wis"){
             this.wis++;
-        } else if (attr == "int"){
+        } else if (attr == "agi"){
             this.agi++;
-        } else if (attr == "int"){
+        } else if (attr == "ver"){
             this.ver++;
         }
     }
@@ -43,7 +43,7 @@ class Stats{
     get_exp(exp){
         this.exp += exp;
         max_exp = this.experience_formula;
-        if (this.exp > max_exp) {
+        if (this.exp >= max_exp) {
             this.exp -= max_exp;
             this.level++;
         }
