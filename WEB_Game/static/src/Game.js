@@ -1,72 +1,132 @@
+/**
+ * Основной класс игры, управляющий циклом, логикой и отображением.
+ */
 class Game {
 
-    static get TILE_SIZE(){
+    static get TILE_SIZE() {
         return 64;
     }
-    
 
+    /**
+     * @param {HTMLCanvasElement} canvas - Элемент canvas для рендеринга.
+     */
     constructor(canvas) {
-    
+        if (!canvas) {
+            console.error("Game: Canvas element not found.");
+        }
 
         this.canvas = canvas;
         this.lastTime = 0;
-        this.is_running = false;
+        this.isRunning = false;
+        this.animationFrameId = null;
 
-        let player = new Player(1, 1, new Stats(), new Professions(), new Inventory(), new Talents())
-
-        this.logic = new GameLogic(player);
-        this.controller = new InputHandler(this.logic)
-        this.view = new GameView(this.logic, this.canvas);
-        //this.player = new Player(this);
-        //this.input = new InputHandler(this);
-
+        // Инициализация начального состояния будет выполнена в startNewGame
+        this.logic = null;
+        this.controller = null;
+        this.view = null;
     }
 
-    show_talents = () => {
-        this.view.isTalents = true;
-        this.logic.isTalents = true;
+    /**
+     * Отображает экран талантов.
+     */
+    showTalents = () => {
+        if (this.view) this.view.isTalents = true;
+        if (this.logic) this.logic.isTalents = true;
     }
 
-    pause_game = () => {
-        this.view.isPause = true;
-        this.logic.isPause = true;
+    /**
+     * Ставит игру на паузу.
+     */
+    pauseGame = () => {
+        if (this.view) this.view.isPause = true;
+        if (this.logic) this.logic.isPause = true;
     }
 
-    continue = () => {
-        this.view.isTalents = false;
-        this.view.isPause = false;
-        this.logic.isTalents = false;
-        this.logic.isPause = false;
+    /**
+     * Снимает игру с паузы.
+     */
+    continueGame = () => {
+        if (this.view) {
+            this.view.isTalents = false;
+            this.view.isPause = false;
+        }
+        if (this.logic) {
+            this.logic.isTalents = false;
+            this.logic.isPause = false;
+        }
     }
 
-    start_new_game = ()  => {
-        if (this.logic.isPause) {
-            let player = new Player(1, 1, new Stats(), new Professions(), new Inventory(), new Talents());
+    /**
+     * Запускает новую игру, создавая новые объекты логики, игрока и представления.
+     */
+    startNewGame = () => {
+        try {
+            const player = new Player(1, 1, new Stats(), new Professions(), new Inventory(), new Talents());
             this.logic = new GameLogic(player);
-            this.controller = new InputHandler(this.logic)
+            this.controller = new InputHandler(this.logic);
             this.view = new GameView(this.logic, this.canvas);
+            
+            // Сброс таймера при новой игре, чтобы избежать скачка deltaTime
+            this.lastTime = 0; 
+        } catch (error) {
+            console.error("Game: Error starting new game:", error);
         }
     }
 
-    run_game = () => {
-        if (this.is_running == false) {
-            this.start_new_game();
-            this.game_cycle(0);
+    /**
+     * Запускает игровой цикл, если он еще не запущен.
+     */
+    runGame = () => {
+        if (!this.isRunning) {
+            this.startNewGame();
+            this.isRunning = true;
+            this.lastTime = performance.now(); // Инициализируем время старта
+            this.animationFrameId = window.requestAnimationFrame(this.gameCycle);
         }
     }
 
+    /**
+     * Обновляет логику и представление.
+     * @param {number} deltaTime - Время в миллисекундах, прошедшее с последнего кадра.
+     */
     update = (deltaTime) => {
-            this.logic.update();
-            this.view.update();
-
+        if (this.logic) this.logic.update(deltaTime);
+        if (this.view) this.view.update(deltaTime);
     }
 
-    game_cycle = (currentTime) => {   // В currentTime будет записан момент времени следующего вызова функции animate()
+    /**
+     * Основной игровой цикл.
+     * @param {number} currentTime - Время текущего кадра (от requestAnimationFrame).
+     */
+    gameCycle = (currentTime) => {
+        if (!this.isRunning) return;
 
-        let deltaTime = currentTime - this.lastTime; // Разница, в миллисекундах, между итерациями анимационного цикла
-        // Очищаем игровое поле перед следующей анимацией
-        this.update(deltaTime) // Теперь обновление игры будет зависеть от частоты смены кадров
-        this.lastTime = currentTime; // Переприсваивание временных позиций
-        window.requestAnimationFrame(this.game_cycle);
+        // Расчет разницы во времени
+        let deltaTime = currentTime - this.lastTime;
+        
+        // Защита от слишком большого deltaTime (например, при переключении вкладок)
+        // Ограничиваем максимальный шаг обновления, чтобы физика не сломалась
+        if (deltaTime > 100) {
+            deltaTime = 100;
+        }
+
+        this.lastTime = currentTime;
+
+        // Обновление состояния игры
+        this.update(deltaTime);
+
+        // Запрос следующего кадра
+        this.animationFrameId = window.requestAnimationFrame(this.gameCycle);
+    }
+
+    /**
+     * Останавливает игровой цикл.
+     */
+    stopGame = () => {
+        this.isRunning = false;
+        if (this.animationFrameId) {
+            window.cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
     }
 }
