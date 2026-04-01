@@ -1,0 +1,1 @@
+Nothing should be ignored based on the provided file changes. The changes only include source code files (.js) and a .gitignore file itself, with no build artifacts, dependencies, or temporary files that need to be ignored.
